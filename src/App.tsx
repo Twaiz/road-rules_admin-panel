@@ -1,3 +1,5 @@
+import './Styles/Main.scss';
+
 import Routing from './Components/Routing';
 
 const App = () => {
