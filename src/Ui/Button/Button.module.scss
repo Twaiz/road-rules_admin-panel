@@ -1,0 +1,42 @@
+@import '/src/Styles/Variables.module.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 40px;
+
+  padding: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  cursor: pointer;
+
+  background-color: var(--color-dark-bg);
+  color: var(--color-light-bg);
+
+  &__disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+}
+
+.link {
+  text-align: center;
+  text-decoration: underline;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22.4px;
+
+  cursor: pointer;
+  border: none;
+
+  color: var(--color-dark-text);
+  background-color: transparent;
+}
