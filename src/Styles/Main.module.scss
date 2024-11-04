@@ -1,4 +1,4 @@
-@import './Variables.scss';
+@use './Variables.module.scss';
 
 body {
   background-color: var(--color-light-bg);
