@@ -1,5 +1,16 @@
+import { Suspense } from 'react';
+
+import './Styles/Main.module.scss';
+
+import Routing from './Components/Routing';
+import Loader from './Ui/Loader';
+
 const App = () => {
-  return <h1>TwaizSolve</h1>;
+  return (
+    <Suspense fallback={<Loader />}>
+      <Routing />
+    </Suspense>
+  );
 };
 
 export default App;
