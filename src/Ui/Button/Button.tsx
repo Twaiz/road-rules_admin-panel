@@ -13,7 +13,7 @@ interface IButton {
   buttonStyle?: ButtonStyles;
   type?: ButtonTypes;
   disabled?: boolean;
-  onChange?: () => void;
+  onClick?: () => void;
 }
 
 const Button = (props: IButton) => {
@@ -22,7 +22,7 @@ const Button = (props: IButton) => {
     buttonStyle = 'button',
     type = 'button',
     disabled = false,
-    onChange,
+    onClick,
   } = props;
 
   //? Я считаю, тут лучше сразу же сделать так, чтобы потом не переписывать ?\\
@@ -52,7 +52,7 @@ const Button = (props: IButton) => {
       className={combinedClassname}
       type={type}
       disabled={disabled}
-      onChange={onChange}
+      onClick={onClick}
     >
       {isLoading ? <Loader /> : text}
     </button>
