@@ -23,14 +23,14 @@ const Button = (props: IButton) => {
   } = props;
 
   //? Я считаю, тут лучше сразу же сделать так, чтобы потом не переписывать ?\\
-  const getButtonStyles = () => {
+  const getButtonStyles = (() => {
     switch (buttonStyle) {
       case 'link':
         return style.link;
       default:
         return style.button;
     }
-  };
+  })(); //? Тут нужна функция IIFE т.к. чтобы присвоить значение функции в переменую ?\\
 
   const isLoading = false; //? Позже тут будет динамическое состояние ?\\
   const isSubmitType = type === 'submit';
