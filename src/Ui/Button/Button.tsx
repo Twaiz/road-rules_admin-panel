@@ -1,12 +1,15 @@
+import { ReactNode } from 'react';
+
 import style from './Button.module.scss';
 
 import Loader from '../Loader';
 
+type ButtonText = string | ReactNode;
 type ButtonTypes = 'button' | 'submit';
 type ButtonStyles = 'button' | 'link';
 
 interface IButton {
-  text: string;
+  text: ButtonText;
   buttonStyle?: ButtonStyles;
   type?: ButtonTypes;
   disabled?: boolean;
