@@ -25,22 +25,12 @@ const Button = (props: IButton) => {
     onClick,
   } = props;
 
-  //? Я считаю, тут лучше сразу же сделать так, чтобы потом не переписывать ?\\
-  const getButtonStyles = (() => {
-    switch (buttonStyle) {
-      case 'link':
-        return style.link;
-      default:
-        return style.button;
-    }
-  })(); //? Тут нужна функция IIFE т.к. чтобы присвоить значение функции в переменую ?\\
-
   const isLoading = false; //? Позже тут будет динамическое состояние ?\\
   const isSubmitType = type === 'submit';
   const styleButtonDisabled = style.button__disabled;
 
   const combinedClassname = [
-    getButtonStyles,
+    style[buttonStyle],
     isSubmitType && isLoading && styleButtonDisabled,
     disabled && styleButtonDisabled,
   ]
