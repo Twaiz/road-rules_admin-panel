@@ -1,13 +1,15 @@
 import { Outlet } from 'react-router-dom';
 
+import style from './AppLayout.module.scss';
+
 import Header from '@/Components/Header';
 
 const AppLayout = () => {
   return (
-    <div>
+    <div className={style.wrapper}>
       <Header />
 
-      <main>
+      <main className={style.main}>
         <Outlet />
       </main>
     </div>
