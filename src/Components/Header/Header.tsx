@@ -7,30 +7,25 @@ import Button from '@/Ui/Button/Button';
 import ThemeToggle from '@/Tools/ThemeToogle';
 
 const Header = () => {
-  const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isVisibleHeader, setIsVisibleHeader] = useState(true);
 
   const navigate = useNavigate();
 
-  const handleScroll = () => {
-    if (window.scrollY > lastScrollY) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
-    setLastScrollY(window.scrollY);
-  };
-
   useEffect(() => {
+    const handleScroll = () => {
+      setIsVisibleHeader(window.scrollY <= lastScrollY);
+      setLastScrollY(window.scrollY);
+    };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastScrollY]);
 
   return (
     <header
       className={`${style.header} ${
-        isVisible ? style.header__visible : style.header__hidden
+        isVisibleHeader ? style.header__visible : style.header__hidden
       }`}
     >
       <ThemeToggle />
