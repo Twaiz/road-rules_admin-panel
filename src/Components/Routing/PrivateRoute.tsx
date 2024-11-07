@@ -8,9 +8,9 @@ interface IPrivateRoute {
 const PrivateRoute = (props: IPrivateRoute) => {
   const { children } = props;
 
-  const isAuth = true; //? Позже состояние будет динамическое ?\\
+  const isAuth = false; //? Позже состояние будет динамическое ?\\
 
-  return isAuth ? children : <Navigate to="login" replace />;
+  return isAuth ? children : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;
