@@ -1,15 +1,12 @@
-import { lazy } from 'react';
+import { lazily } from 'react-lazily';
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
 } from 'react-router-dom';
 
-const AppLayout = lazy(() => import('@/Ui/AppLayout'));
-const PageNotFound = lazy(() => import('@/Pages/PageNotFound'));
-
-const Login = lazy(() => import('@/Pages/Login'));
-const Menu = lazy(() => import('@/Pages/Menu'));
+const { AppLayout } = lazily(() => import('@/Ui'));
+const { PageNotFound, Login, Menu } = lazily(() => import('@/Pages'));
 
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
@@ -53,4 +50,4 @@ const Routing = () => {
   return <RouterProvider router={router} />;
 };
 
-export default Routing;
+export { Routing };

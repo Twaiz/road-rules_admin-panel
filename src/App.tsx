@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 
 import './Styles/Main.module.scss';
 
-import Routing from './Components/Routing';
-import Loader from './Ui/Loader';
+import { Routing } from './Components';
+import { Loader } from './Ui';
 
 const App = () => {
   return (
@@ -13,4 +13,4 @@ const App = () => {
   );
 };
 
-export default App;
+export { App };

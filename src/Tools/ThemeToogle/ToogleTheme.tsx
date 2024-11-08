@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { localStorageSelectors } from '../Helpers';
+import { localStorageSelectors } from '../';
 
-import Button from '@/Ui/Button';
+import { Button } from '@/Ui';
 import { MoonIcon, SunIcon } from '@/../public/svg/ThemeToogleIcons';
 
 type ThemeModes = 'whiteMode' | 'darkMode';
@@ -38,4 +38,4 @@ const ToggleTheme = () => {
   );
 };
 
-export default ToggleTheme;
+export { ToggleTheme };
