@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import style from './AppLayout.module.scss';
 
-import Header from '@/Components/Header';
+import { Header } from '@/Components';
 
 const AppLayout = () => {
   return (
@@ -16,4 +16,4 @@ const AppLayout = () => {
   );
 };
 
-export default AppLayout;
+export { AppLayout };

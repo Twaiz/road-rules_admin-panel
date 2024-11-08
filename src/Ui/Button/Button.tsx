@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import style from './Button.module.scss';
 
-import Loader from '../Loader';
+import { Loader } from '../';
 
 type ButtonText = string | ReactNode;
 type ButtonTypes = 'button' | 'submit';
@@ -49,4 +49,4 @@ const Button = (props: IButton) => {
   );
 };
 
-export default Button;
+export { Button };

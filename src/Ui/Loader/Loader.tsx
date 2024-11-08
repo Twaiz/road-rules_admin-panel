@@ -27,4 +27,4 @@ const Loader = ({ loaderStyle = 'buttonLoader' }: ILoader) => {
   );
 };
 
-export default Loader;
+export { Loader };

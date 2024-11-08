@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import style from './Header.module.scss';
 
-import Button from '@/Ui/Button/Button';
-import ThemeToggle from '@/Tools/ThemeToogle';
+import { Button } from '@/Ui';
+import { ToggleTheme } from '@/Tools';
 
 const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -28,7 +28,7 @@ const Header = () => {
         isVisibleHeader ? style.header__visible : style.header__hidden
       }`}
     >
-      <ThemeToggle />
+      <ToggleTheme />
       <nav className={style.navigation}>
         <ul className={style.navigation_auth}>
           <li>
@@ -73,4 +73,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export { Header };
