@@ -1,6 +1,8 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
+import { generalStore } from '@/Stores';
+
 interface IPrivateRoute {
   children: React.ReactElement;
 }
@@ -8,7 +10,7 @@ interface IPrivateRoute {
 const PrivateRoute = (props: IPrivateRoute) => {
   const { children } = props;
 
-  const isAuth = false; //? Позже состояние будет динамическое ?\\
+  const isAuth = generalStore.isAuth;
 
   return isAuth ? children : <Navigate to="/login" replace />;
 };

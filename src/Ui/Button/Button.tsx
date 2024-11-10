@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { generalStore } from '@/Stores';
+
 import style from './Button.module.scss';
 
 import { Loader } from '../';
@@ -25,7 +27,7 @@ const Button = (props: IButton) => {
     onClick,
   } = props;
 
-  const isLoading = false; //? Позже тут будет динамическое состояние ?\\
+  const isLoading = generalStore.isLoading;
   const isSubmitType = type === 'submit';
   const styleButtonDisabled = style.button__disabled;
 
