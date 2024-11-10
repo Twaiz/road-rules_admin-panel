@@ -24,11 +24,15 @@ class AuthStore {
     makeAutoObservable(this);
   }
 
+  setUserInfo(userInfo: IUserInfo) {
+    this.userInfo = userInfo;
+  }
+
   async login(userCredentials: IUserCredentianls) {
     const userInfo: IUserInfo | null = await api.login(userCredentials);
     if (!userInfo) return null;
 
-    this.userInfo = userInfo;
+    this.setUserInfo(userInfo);
     generalStore.setIsAuth(true);
 
     //? Позже тут будет запись в localStorage ?\\
