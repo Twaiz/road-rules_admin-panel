@@ -12,7 +12,7 @@ const PublicRoute = (props: IPublicRoute) => {
 
   const isAuth = generalStore.isAuth;
 
-  return !isAuth ? children : <Navigate to="menu" replace />;
+  return !isAuth ? children : <Navigate to="/menu" replace />;
 };
 
 export default PublicRoute;
