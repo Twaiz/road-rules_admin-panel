@@ -26,15 +26,7 @@ class AuthStore {
   userInfo: IUserInfo | null;
 
   constructor() {
-    this.userInfo = localStorageUserInfo
-      ? {
-          firstName: localStorageUserInfo.firstName,
-          secondName: localStorageUserInfo.secondName,
-          email: localStorageUserInfo.email,
-          isAppointExam: localStorageUserInfo.isAppointExam,
-          token: localStorageUserInfo.token,
-        }
-      : null;
+    this.userInfo = localStorageUserInfo || null;
     makeAutoObservable(this);
   }
 

@@ -13,7 +13,7 @@ class GeneralStore {
 
   constructor() {
     this.isLoading = false;
-    this.isAuth = !!localStorageUserInfo.token;
+    this.isAuth = !!localStorageUserInfo?.token;
 
     makeAutoObservable(this);
   }
