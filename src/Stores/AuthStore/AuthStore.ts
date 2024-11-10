@@ -1,7 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 
-import { generalStore } from '../GeneralStore/GeneralStore';
-import { api } from '@/Operations/operations';
+import { generalStore } from '../';
+import { api } from '@/Operations';
+import { localStorageSelectors } from '@/Tools';
 
 interface IUserInfo {
   firstName: string;
@@ -16,11 +17,24 @@ interface IUserCredentianls {
   password: string;
 }
 
+const getLocalUserInfo = localStorage.getItem(localStorageSelectors.userInfo);
+const localStorageUserInfo = getLocalUserInfo
+  ? JSON.parse(getLocalUserInfo)
+  : null;
+
 class AuthStore {
   userInfo: IUserInfo | null;
 
   constructor() {
-    this.userInfo = null;
+    this.userInfo = localStorageUserInfo
+      ? {
+          firstName: localStorageUserInfo.firstName,
+          secondName: localStorageUserInfo.secondName,
+          email: localStorageUserInfo.email,
+          isAppointExam: localStorageUserInfo.isAppointExam,
+          token: localStorageUserInfo.token,
+        }
+      : null;
     makeAutoObservable(this);
   }
 
@@ -35,7 +49,10 @@ class AuthStore {
     this.setUserInfo(userInfo);
     generalStore.setIsAuth(true);
 
-    //? Позже тут будет запись в localStorage ?\\
+    localStorage.setItem(
+      localStorageSelectors.userInfo,
+      JSON.stringify(userInfo),
+    );
   }
 }
 
