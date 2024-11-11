@@ -33,8 +33,22 @@ const handleError = (error: unknown, titleText: string) => {
   }
 };
 
+const checkInternetConnection = (titleText: string) => {
+  const isOnline = navigator.onLine;
+
+  if (!isOnline) {
+    notificationStore.setNotification({
+      type: 'error',
+      titleText: `Ошибка ${titleText}`,
+      bodyText: 'Отсуствует интернет подключение',
+    });
+  }
+
+  return isOnline;
+};
+
 const api = {
   login: authOperations.login,
 };
 
-export { api, token, handleError };
+export { api, token, handleError, checkInternetConnection };
