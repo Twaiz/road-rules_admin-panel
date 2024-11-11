@@ -1,14 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { ToggleTheme } from '@/Tools';
+import { authStore, generalStore } from '@/Stores';
+
 import style from './Header.module.scss';
 
 import { Button } from '@/Ui';
-import { ToggleTheme } from '@/Tools';
 
 const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isVisibleHeader, setIsVisibleHeader] = useState(true);
+
+  const isAuth = generalStore.isAuth;
+  const { firstName, secondName } = authStore.userInfo
+    ? authStore.userInfo
+    : {};
 
   const navigate = useNavigate();
 
@@ -32,18 +39,7 @@ const Header = () => {
       <nav className={style.navigation}>
         <ul className={style.navigation_auth}>
           <li>
-            <Button
-              buttonStyle="button"
-              text="Логин"
-              onClick={() => navigate('/login')}
-            />
-            <p className={style.navigation_authItemDescription}>Вася Пупкин</p>
-          </li>
-
-          {/*
-          //? Начало - Позже будет всё динамическое ?\\
-          <li>
-            {!authStore.isAuth ? (
+            {!isAuth ? (
               <Button
                 buttonStyle="button"
                 text="Логин"
@@ -51,22 +47,20 @@ const Header = () => {
               />
             ) : (
               <p className={style.navigation_authItemDescription}>
-                {authStore.userInfo?.firstName} {authStore.userInfo?.secondName}
+                {firstName} {secondName}
               </p>
             )}
           </li>
           <li>
-            {!authStore.isAuth ? (
+            {!isAuth ? (
               <Button
                 text="Регистрация"
                 onClick={() => navigate('/register')}
               />
             ) : (
-              <Button onClick={() => authStore.logout()} text="Выйти" />
+              <Button text="Выйти" /> //? Позже будет реализована функция logout ?\\
             )}
-          </li> 
-          //? Конец ?\\
-          */}
+          </li>
         </ul>
       </nav>
     </header>
