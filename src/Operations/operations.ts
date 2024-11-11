@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { variables } from '/variables.ts';
 import { authOperations } from './authOperations';
-import { notificationStore } from '@/Stores';
+import { authStore, generalStore, notificationStore } from '@/Stores';
 
 axios.defaults.baseURL = variables.apiUrl;
 
@@ -47,8 +47,25 @@ const checkInternetConnection = (titleText: string) => {
   return isOnline;
 };
 
+const checkToken = (titleText: string) => {
+  const authToken = authStore.userInfo?.token;
+
+  if (!authToken) {
+    notificationStore.setNotification({
+      type: 'error',
+      titleText: `Ошибка ${titleText}`,
+      bodyText: 'Отсуствует токен',
+    });
+    generalStore.setIsLoading(false);
+    return null;
+  }
+
+  token.set(authToken);
+  return;
+};
+
 const api = {
   login: authOperations.login,
 };
 
-export { api, token, handleError, checkInternetConnection };
+export { api, token, handleError, checkInternetConnection, checkToken };
