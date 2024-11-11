@@ -11,6 +11,8 @@ const { PageNotFound, Login, Menu } = lazily(() => import('@/Pages'));
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 
+import { LoginAction } from '@/Actions';
+
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -27,8 +29,8 @@ const router = createBrowserRouter([
             <Login />
           </PublicRoute>
         ),
+        action: LoginAction,
       },
-      //? Начало - Для примера PrivateRoute ?\\\
       {
         path: 'menu',
         element: (
@@ -37,7 +39,6 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      //? Конец ?\\\
       {
         path: '*',
         element: <PageNotFound />,
