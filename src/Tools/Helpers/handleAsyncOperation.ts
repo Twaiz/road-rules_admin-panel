@@ -1,20 +1,37 @@
-import { generalStore } from '@/Stores';
+import { checkInternetConnection, checkToken, handleError } from '@/Operations';
+import { generalStore, notificationStore } from '@/Stores';
 
 type AsyncFunction<AF> = () => Promise<AF>;
+type NecessaryChecks = 'token';
+
+interface IHandleAsyncOperation<IHAO> {
+  fn: AsyncFunction<IHAO>;
+  titleError: string;
+  necessaryChecks?: NecessaryChecks | null;
+}
 
 const handleAsyncOperation = async <HAO>(
-  fn: AsyncFunction<HAO>,
-  textError: string,
+  props: IHandleAsyncOperation<HAO>,
 ): Promise<HAO | null> => {
+  const { fn, titleError, necessaryChecks = null } = props;
+
+  notificationStore.deleteNotification();
+
   try {
+    const isOnline = checkInternetConnection(titleError);
+    if (!isOnline) return null;
+
+    if (necessaryChecks === 'token') {
+      const tokenValid = checkToken(titleError);
+      if (!tokenValid) return null;
+    }
+
     generalStore.setIsLoading(true);
 
     const result = await fn();
     return result;
   } catch (error) {
-    const err = error as Error;
-
-    console.log(textError, err); //? Позже тут будет отправка ошибки в notification store ?\\
+    handleError(error, titleError);
     return null;
   } finally {
     generalStore.setIsLoading(false);
