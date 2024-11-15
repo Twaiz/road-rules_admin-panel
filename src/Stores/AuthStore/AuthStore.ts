@@ -1,7 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
 import { generalStore } from '../';
-import { api } from '@/Operations';
 import { localStorageSelectors } from '@/Tools';
 import { token } from '@/Operations';
 
@@ -11,11 +10,6 @@ interface IUserInfo {
   isAppointExam: boolean;
   email: string;
   token: string;
-}
-
-interface IUserCredentianls {
-  email: string;
-  password: string;
 }
 
 const getLocalUserInfo = localStorage.getItem(localStorageSelectors.userInfo);
@@ -35,10 +29,7 @@ class AuthStore {
     this.userInfo = userInfo;
   }
 
-  async login(userCredentials: IUserCredentianls) {
-    const userInfo: IUserInfo | null = await api.login(userCredentials);
-    if (!userInfo) return null;
-
+  async login(userInfo: IUserInfo) {
     this.setUserInfo(userInfo);
     token.set(userInfo.token);
     generalStore.setIsAuth(true);
