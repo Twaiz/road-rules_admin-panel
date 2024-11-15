@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import { generalStore } from '../';
 import { api } from '@/Operations';
 import { localStorageSelectors } from '@/Tools';
+import { token } from '@/Operations';
 
 interface IUserInfo {
   firstName: string;
@@ -39,6 +40,7 @@ class AuthStore {
     if (!userInfo) return null;
 
     this.setUserInfo(userInfo);
+    token.set(userInfo.token);
     generalStore.setIsAuth(true);
 
     localStorage.setItem(

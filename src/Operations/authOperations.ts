@@ -19,13 +19,16 @@ const authOperations = {
   login: async (
     userCredentials: IUserCredentianls,
   ): Promise<IUserInfo | null> => {
-    return handleAsyncOperation(async () => {
-      const { data }: AxiosResponse<IUserInfo> = await axios.post(
-        '/api/auth/adminLogin',
-        userCredentials,
-      );
-      return data;
-    }, 'Упс! Произошла ошибка при входе в аккаунт...');
+    return handleAsyncOperation({
+      fn: async () => {
+        const { data }: AxiosResponse<IUserInfo> = await axios.post(
+          '/api/auth/adminLogin',
+          userCredentials,
+        );
+        return data;
+      },
+      titleError: 'логина',
+    });
   },
 };
 

@@ -2,10 +2,11 @@ import axios from 'axios';
 
 import { variables } from '/variables.ts';
 import { authOperations } from './authOperations';
+import { authStore, generalStore, notificationStore } from '@/Stores';
 
 axios.defaults.baseURL = variables.apiUrl;
 
-export const token = {
+const token = {
   set(token: string) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
@@ -14,8 +15,57 @@ export const token = {
   },
 };
 
+const handleError = (error: unknown, titleText: string) => {
+  if (axios.isAxiosError(error) && error.response?.data.message) {
+    notificationStore.setNotification({
+      type: 'error',
+      titleText: `Ошибка ${titleText}`,
+      bodyText: error.message,
+    });
+
+    return;
+  } else {
+    notificationStore.setNotification({
+      type: 'error',
+      titleText: `Ошибка ${titleText}`,
+      bodyText: 'Неизвестная ошибка',
+    });
+  }
+};
+
+const checkInternetConnection = (titleText: string) => {
+  const isOnline = navigator.onLine;
+
+  if (!isOnline) {
+    notificationStore.setNotification({
+      type: 'error',
+      titleText: `Ошибка ${titleText}`,
+      bodyText: 'Отсуствует интернет подключение',
+    });
+  }
+
+  return isOnline;
+};
+
+const checkToken = (titleText: string) => {
+  const authToken = authStore.userInfo?.token;
+
+  if (!authToken) {
+    notificationStore.setNotification({
+      type: 'error',
+      titleText: `Ошибка ${titleText}`,
+      bodyText: 'Отсуствует токен',
+    });
+    generalStore.setIsLoading(false);
+    return null;
+  }
+
+  token.set(authToken);
+  return;
+};
+
 const api = {
   login: authOperations.login,
 };
 
-export { api };
+export { api, token, handleError, checkInternetConnection, checkToken };
