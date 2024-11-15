@@ -1,41 +1,42 @@
-import { checkInternetConnection, checkToken, handleError } from '@/Operations';
-import { generalStore, notificationStore } from '@/Stores';
+import { checkInternetConnection, checkToken, handleError } from "@/Operations";
+import { generalStore, notificationStore } from "@/Stores";
 
 type AsyncFunction<AF> = () => Promise<AF>;
-type NecessaryChecks = 'token';
+type NecessaryChecks = "token";
 
 interface IHandleAsyncOperation<IHAO> {
-  fn: AsyncFunction<IHAO>;
-  titleError: string;
-  necessaryChecks?: NecessaryChecks | null;
+	fn: AsyncFunction<IHAO>;
+	titleError: string;
+	necessaryChecks?: NecessaryChecks | null;
 }
 
 const handleAsyncOperation = async <HAO>(
-  props: IHandleAsyncOperation<HAO>,
+	props: IHandleAsyncOperation<HAO>,
 ): Promise<HAO | null> => {
-  const { fn, titleError, necessaryChecks = null } = props;
+	const { fn, titleError, necessaryChecks = null } = props;
 
-  notificationStore.deleteNotification();
+	notificationStore.deleteNotification();
 
-  try {
-    const isOnline = checkInternetConnection(titleError);
-    if (!isOnline) return null;
+	try {
+		const isOnline = checkInternetConnection(titleError);
+		if (!isOnline) return null;
 
-    if (necessaryChecks === 'token') {
-      const tokenValid = checkToken(titleError);
-      if (!tokenValid) return null;
-    }
+		if (necessaryChecks === "token") {
+			const tokenValid = checkToken(titleError);
+			if (!tokenValid) return null;
+		}
 
-    generalStore.setIsLoading(true);
+		generalStore.setIsLoading(true);
 
-    const result = await fn();
-    return result;
-  } catch (error) {
-    handleError(error, titleError);
-    return null;
-  } finally {
-    generalStore.setIsLoading(false);
-  }
+		const result = await fn();
+		return result;
+	} catch (error) {
+		// TODO: Нет вызова generalStore.setIsLoading(false);
+		handleError(error, titleError);
+		return null;
+	} finally {
+		generalStore.setIsLoading(false);
+	}
 };
 
 export { handleAsyncOperation };
