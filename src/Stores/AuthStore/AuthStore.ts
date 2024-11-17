@@ -4,8 +4,6 @@ import { generalStore } from '../';
 import { localStorageSelectors } from '@/Tools';
 import { api, token } from '@/Operations';
 
-// Interface - refactor with help  "export interface"
-
 interface IUserInfo {
   firstName: string;
   secondName: string;
@@ -64,3 +62,4 @@ class AuthStore {
 
 const authStore = new AuthStore();
 export { authStore };
+export type { IUserInfo, ICredentialsLogin };
