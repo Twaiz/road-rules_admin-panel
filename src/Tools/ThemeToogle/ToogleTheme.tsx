@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { localStorageSelectors } from '../';
 
 import { Button } from '@/Ui';
-import { MoonIcon, SunIcon } from '@/../public/svg/ThemeToogleIcons';
+import { MoonIcon, SunIcon } from '/public';
 
 type ThemeModes = 'whiteMode' | 'darkMode';
 
