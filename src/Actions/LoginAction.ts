@@ -1,6 +1,6 @@
 import { redirect } from 'react-router-dom';
 
-import { loginStore, generalStore } from '@/Stores';
+import { generalStore, authStore } from '@/Stores';
 
 interface ICredentials {
   email: string;
@@ -18,7 +18,7 @@ const LoginAction = async ({ request }: { request: Request }) => {
     password: data.userPassword,
   };
 
-  await loginStore.login(credentials);
+  await authStore.login(credentials);
 
   if (!generalStore.isAuth) return redirect('/login');
 
