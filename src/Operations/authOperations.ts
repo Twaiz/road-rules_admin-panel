@@ -1,41 +1,16 @@
-import axios, { AxiosResponse } from "axios";
+import axios from 'axios';
 
-import { handleAsyncOperation } from "@/Tools";
+import { handleAsyncOperation } from '@/Tools';
+import { IUserInfo, ICredentialsLogin } from '@/Stores';
 
-interface IUserInfo {
-	firstName: string;
-	secondName: string;
-	isAppointExam: boolean;
-	email: string;
-	token: string;
-}
-
-interface IUserCredentianls {
-	email: string;
-	password: string;
-}
-
-/**
- * TODO:
- * Помоеу это выглядит слишком сложным
- *
- * Объект в котором метод, который возвращает функцию, которая принимает объект, в котором нужна функция
- */
 const authOperations = {
-	login: async (
-		userCredentials: IUserCredentianls,
-	): Promise<IUserInfo | null> => {
-		return handleAsyncOperation({
-			fn: async () => {
-				const { data }: AxiosResponse<IUserInfo> = await axios.post(
-					"/api/auth/adminLogin",
-					userCredentials,
-				);
-				return data;
-			},
-			titleError: "логина",
-		});
-	},
+  login: async (
+    userCredentials: ICredentialsLogin,
+  ): Promise<IUserInfo | null> => {
+    const requestToLogin = () =>
+      axios.post('/api/auth/adminLogin', userCredentials).then(res => res.data);
+    return handleAsyncOperation(requestToLogin, 'логина');
+  },
 };
 
 export { authOperations };

@@ -1,45 +1,35 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable } from 'mobx';
 
-type NotificationTypes = "basic" | "error";
+type NotificationTypes = 'basic' | 'error';
 
 interface IButton {
-	text: string;
-	onClick: () => void;
+  text: string;
+  onClick: () => void;
 }
 
 interface INotification {
-	type: NotificationTypes;
-	titleText: string;
-	bodyText: string;
-	button?: IButton;
+  type: NotificationTypes;
+  titleText: string;
+  bodyText: string;
+  button?: IButton;
 }
 
 class NotificationStore {
-	notification: INotification | null;
+  notification: INotification | null;
 
-	constructor() {
-		this.notification = null;
+  constructor() {
+    this.notification = null;
 
-		makeAutoObservable(this);
-	}
+    makeAutoObservable(this);
+  }
 
-	/**
-	 *
-	 *  TODO:
-	 * Для нотификаций кстати можно сделать несколько разных метов setErrorNotification
-	 * setInfoNotification и тогда не придется передавать type а просто вызвать нужный метод
-   * 
-   * @example
-   * setErrorNotification(notification: IsetErrorNotification) {
-		this.notification = {type: 'error', ...notification};}
-	 */
-	setNotification(notification: INotification) {
-		this.notification = notification;
-	}
+  setNotification(notification: INotification) {
+    this.notification = notification;
+  }
 
-	deleteNotification() {
-		this.notification = null;
-	}
+  deleteNotification() {
+    this.notification = null;
+  }
 }
 
 const notificationStore = new NotificationStore();
