@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useRef } from 'react';
-import { Form, redirect, useNavigate } from 'react-router-dom';
+import { Form, redirect } from 'react-router-dom';
 
 import { authStore } from '@/Stores';
 import { validateEmailField, validatePasswordField } from '@/Tools';
@@ -12,8 +12,6 @@ import { Button, Checkbox, Input } from '@/Ui';
 const Login = observer(() => {
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const fieldIsSuccess = authStore.getAllStatusField();
-
-  const navigate = useNavigate();
 
   const handleChangeVisibility = () => {
     const input = passwordInputRef.current;
@@ -63,11 +61,13 @@ const Login = observer(() => {
             onClick={() => redirect('/menu')}
           />
 
-          <Button
-            buttonStyle="link"
-            text="Зарегистрироваться"
-            onClick={() => navigate('/register')}
-          />
+          <a
+            href="http://localhost:5273/register"
+            target="_blank"
+            className={style.actions_link}
+          >
+            Зарегистрироваться
+          </a>
         </div>
       </Form>
     </div>

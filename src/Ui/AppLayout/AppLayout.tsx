@@ -1,8 +1,10 @@
 import { Outlet } from 'react-router-dom';
 
+import { notificationStore } from '@/Stores';
+
 import style from './AppLayout.module.scss';
 
-import { Header } from '@/Components';
+import { Header, Notification } from '@/Components';
 
 const AppLayout = () => {
   return (
@@ -11,6 +13,8 @@ const AppLayout = () => {
 
       <main className={style.main}>
         <Outlet />
+
+        {notificationStore.notification && <Notification />}
       </main>
     </div>
   );
